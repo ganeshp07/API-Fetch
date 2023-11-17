@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+    
+</head>
+<body>
+    <form action="index.html" id="form">
+        <h1 class="center">Login Form</h1>
+        <div class="input-group">
+            <label for="Username">UserName</label>
+            <input type="text" id="username">
+            <div class="error"></div>
+        </div>
+        <div class="input-group">
+            <label for="pass">Password</label>
+            <input type="password" id="pass">
+            <div class="error"></div>
+        </div>
+        <button>Login</button>
+    </form>
+    <script>let form = document.getElementById("form");
+        let user = document.getElementById("username");
+        let pass = document.getElementById("pass");
+        
+        form.addEventListener("submit", (e) => {
+          if (!validate()) {
+            e.preventDefault();
+          }
+          
+        });
+        
+        function validate() {
+          let userval = user.value.trim();
+          let passval = pass.value.trim();
+          let win = true;
+          if (userval === "") {
+            error(user, "Username is required");
+            win = false;
+          } else {
+            success(user);
+          }
+          if (passval === "") {
+            error(pass, "Password is required");
+            win = false;
+          } else if (passval.length < 8) {
+            win = false;
+            error(pass, "password should be at least 8 characters long");
+          } else {
+            success(pass);
+          }
+          return win;
+        }
+        
+        function error(element, msg) {
+          let intgrp = element.parentElement;
+          let err = intgrp.querySelector(".error");
+          err.innerHTML = msg;
+          intgrp.classList.add("error");
+          intgrp.classList.remove("success");
+        }
+        function success(element) {
+          let intgrp = element.parentElement;
+          let err = intgrp.querySelector(".error");
+          err.innerHTML = "";
+          intgrp.classList.add("success");
+          intgrp.classList.remove("error");
+        }</script>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+    <div class="container">
+        <form action="" id="form">
+            <h1>Signup Form</h1>
+            <div class="input">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username">
+                <div class="error"></div>
+            </div>
+            <div class="input">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email">
+                <div class="error"></div>
+            </div>
+            <div class="input">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password">
+                <div class="error"></div>
+            </div>
+            <div class="input">
+                <label for="cpassword">Confirm Password</label>
+                <input type="pasword" id="cpassword" name="cpassword">
+                <div class="error"></div>
+            </div>
+            <button type="submit">Submit</button>
+
+            <a class="home" href="index.html">Home</a>
+        </form>
+    </div>
+    <script>
+        let form = document.getElementById("form");
+let username = document.getElementById("Username");
+let email = document.getElementById("email");
+let pass = document.getElementById("password");
+let cpass = document.getElementById("cpassword");
+
+form.addEventListener("submit", (e) => {
+  if(!validate()){
+    e.preventDefault()
+  }
+  
+});
+function validate() {
+  let userval = username.value.trim();
+  let emailval = email.value.trim();
+  let passwordval = password.value.trim();
+  let cpasswordval = cpassword.value.trim();
+  let win=true
+
+  if (userval === "") {
+    error(username, "username is Required");
+    win=false;
+  } else {
+    success(username);
+  }
+
+  if (emailval === "") {
+    error(email, "Email is Required");
+    win=false;
+  } else if (!setemail(emailval)) {
+    error(email, "Please enter a Valid Email");
+    win=false;
+  } else {
+    success(email);
+  }
+
+  if(passwordval===''){
+    error(password,"Password is required")
+    win=false;
+  }else if(passwordval.length<8){
+    error(password,'password must be atleast 8 characters long');
+    win=false;
+  }
+  else {
+    success(pass);
+  }
+
+  if(cpasswordval===''){
+    error(cpassword,"Confirm Password is required")
+    win=false;
+  }
+  else if(cpasswordval!==passval){
+    error(cpassword,'Passwords do not match')
+    win=false;
+  }
+  else {
+    success(cpassword);
+  }
+  return win;
+}
+
+function error(element, msg) {
+  let intgrp = element.parentElement;
+  let err = intgrp.querySelector(".error");
+  err.innerHTML = msg;
+  intgrp.classList.add("error");
+  intgrp.classList.remove("success");
+}
+function success(element) {
+  let intgrp = element.parentElement;
+  let err = intgrp.querySelector(".error");
+  err.innerHTML = " ";
+  intgrp.classList.add("success");
+  intgrp.classList.remove("error");
+}
+
+function setemail(email) {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    );
+}
+    </script>
+    
+</body>
+</html>
